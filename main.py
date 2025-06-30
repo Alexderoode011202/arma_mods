@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Tk, Label, Entry, Button
 from typing import List, Tuple, Set, Dict
 from functions import fully_process
 
@@ -32,7 +32,6 @@ def test_click(*args) -> None:
     
     return None
     
-
 root = Tk()
 root.title("mod comparer")
 root.geometry("1000x500")
