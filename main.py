@@ -56,3 +56,5 @@ other_entry.grid(column=1, row=1)
 process_button.grid(column=2, row=0, rowspan=2)
 
 root.mainloop()
+
+# to create installer, run: pyinstaller main.py --onefile --name test --windowed
