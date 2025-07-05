@@ -61,7 +61,7 @@ def compare_mod_files(mod_list1: Set[Tuple[str, str]],
         print("Only in first set:", first_only)  # Difference
         print("Only in second set:", second_only)  # Difference
         print("Exclusive to each set:", mod_list1 ^ mod_list2)  # Symmetric difference
-        
+    
     return {'common': common,
             "unique": unique,
             "first only": first_only,
