@@ -21,9 +21,7 @@ def extract_path(path: int = 0) -> str:
         second_path = file_path
         second_file_label.config(text=f"file: {file_path}")    
     
-
-
-
+    
 root = Tk()
 root.title("mod comparer")
 root.geometry("1000x500")
