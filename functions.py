@@ -1,6 +1,12 @@
 from bs4 import BeautifulSoup
-from typing import List, Tuple, Set, Dict
-
+from typing import List, Tuple, Set, Dict, Union
+import os      
+from tkinter import Tk, Label, Button
+from tkinter.ttk import Treeview
+from tkinter.filedialog import askopenfilename
+from typing import List, Tuple, Union
+import os
+import tkinter as tk
 
 def parse_mod_file(file_path) -> List[Tuple[str, str]]:
     """Parse an Arma 3 mod HTML file and return a list of mod dictionaries"""
@@ -97,5 +103,54 @@ def fully_process(path1: str, path2: str) -> Dict[str, List[Tuple[str, str]]]:
     results_dict: Dict[str, Set[Tuple[str, str]]] = compare_mod_files(mod_set1, mod_set2)
     return results_dict
 
-
+def transpose(*columns: List[List[str]]) -> List[List[Union[str, int]]]:
+    largest_size: int = 1 
     
+    for column in columns:
+        if len(column) > largest_size:
+            largest_size = len(column)
+            
+    for column in columns:
+        if len(column) == largest_size:
+            continue 
+        
+        column.extend([""]*(largest_size-len(column)))
+    
+    return [[row[i] for row in columns] for i in range(len(columns[0]))]
+    
+def extract_path(path: int = 0) -> str:
+    global first_path, second_path, first_file_label, second_file_label
+    
+    file_path: str = askopenfilename(initialdir=os.getcwd(), 
+                                       title="get your mod file", 
+                                       filetypes=(("HTML files", "*.html"), 
+                                                  ("all files", "*.*")))
+    if path == 0:
+        first_path = file_path
+        first_file_label.config(text=f"file: {file_path}")    
+    elif path == 1:
+        second_path = file_path
+        second_file_label.config(text=f"file: {file_path}")    
+
+
+def process_with_table(OWN_FILE: str, OTHER_FILE: str, column_to_start: int = 0, row_to_start: int = 3) -> None:
+    global root, data
+    
+    data = fully_process(OWN_FILE, OTHER_FILE)
+    
+    own_only_name   : List[str] = sorted(list(map(lambda x: x[0], data["first only"])))
+    other_only_name : List[str] = sorted(list(map(lambda x: x[0], data["second only"])))
+    
+    rows: List[List[str]] = transpose(own_only_name, other_only_name)
+    
+    columns = ("own exclusive mods", "other exclusive mods")
+    tree = Treeview(root, columns=columns, show="headings")
+    
+    for col in columns:
+        tree.heading(col, text=col)
+        tree.column(col, width=450)
+    
+    for row in rows:
+        tree.insert("", tk.END, values=row)
+    
+    tree.grid(column=0, columnspan=len(rows[0]), row=row_to_start, rowspan=len(rows))
