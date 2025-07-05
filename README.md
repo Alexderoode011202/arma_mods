@@ -11,3 +11,6 @@ Technically one does not have to build the application from scratch due to the r
 3. (optional) If you don't have pyinstaller yet, download it with pip: `pip install pyinstaller`
 4. now make the executable: `pyinstaller main.py --onefile --name test --windowed`
 5. (optional) make a .desktop file or the windows derivative of it to easily find it.
+
+## License:
+This project is licensed uder the GPLv3 license. For more information, visit the license.txt file.
