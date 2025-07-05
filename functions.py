@@ -87,7 +87,8 @@ def fully_process(path1: str, path2: str) -> Dict[str, List[Tuple[str, str]]]:
     Description:
     ----------
     this function fully processes the HTML files to extract 
-    the mods in a dictionary.
+    the mods in a dictionary and perform the set-relation-wise comparison between the two mod files.
+    This function then returns the results of those comparisons in the form of a dictionary
     
     Parameters
     ----------
@@ -102,13 +103,13 @@ def fully_process(path1: str, path2: str) -> Dict[str, List[Tuple[str, str]]]:
         Dictionary containing string keys together with lists of 
         2-string-tuples representing mods.
     """
-    mods1: List[Tuple[str, str]] = parse_mod_file(path1)
+    mods1: List[Tuple[str, str]] = parse_mod_file(path1)        # example of such representation -> ("mod name 1", "https://www.steam.arma3.workshop.123456789.com")
     mods2: List[Tuple[str, str]] = parse_mod_file(path2)
     
     mod_set1: Set[Tuple[str, str]] = set(mods1)
     mod_set2: Set[Tuple[str, str]] = set(mods2)
     
-    results_dict: Dict[str, Set[Tuple[str, str]]] = compare_mod_files(mod_set1, mod_set2)
+    results_dict: Dict[str, Set[Tuple[str, str]]] = compare_mod_files(mod_set1, mod_set2) # example of such representation -> {"common": [("mod name 1", "https://www.steam.arma3.workshop.123456789.com"), ...], ...}
     return results_dict
 
 def transpose(*columns: List[List[str]]) -> List[List[Union[str, int]]]:
