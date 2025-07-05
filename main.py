@@ -4,6 +4,7 @@ from tkinter.filedialog import askopenfilename
 from typing import List, Tuple, Set, Dict, Union
 from functions import fully_process
 import os
+import tkinter as tk
 
 first_path: str 
 second_path: str
@@ -35,7 +36,19 @@ def process_with_table(OWN_FILE: str, OTHER_FILE: str, column_to_start: int = 0,
     own_only_name   : List[str] = list(map(lambda x: x[0], data["first only"]))
     other_only_name : List[str] = list(map(lambda x: x[0], data["second only"]))
     
-    rows = transpose(own_only_name, other_only_name)
+    rows: List[List[str]] = transpose(own_only_name, other_only_name)
+    
+    columns = ("own exclusive mods", "other exclusive mods")
+    tree = Treeview(root, columns=columns, show="headings")
+    
+    for col in columns:
+        tree.heading(col, text=col)
+        tree.column(col, width=300)
+    
+    for row in rows:
+        tree.insert("", tk.END, values=row)
+
+    tree.grid(column=0, columnspan=len(rows[0]), row=row_to_start, rowspan=len(rows))
     
     
     
