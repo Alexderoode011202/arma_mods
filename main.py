@@ -10,7 +10,7 @@ first_path: str
 second_path: str
 
 def transpose(*columns: List[List[str]]) -> List[List[Union[str, int]]]:
-    largest_size: int = 0 
+    largest_size: int = 1 
     
     for column in columns:
         if len(column) > largest_size:
@@ -21,8 +21,8 @@ def transpose(*columns: List[List[str]]) -> List[List[Union[str, int]]]:
             continue 
         
         column.extend([""]*(largest_size-len(column)))
-        
-    return [[row[i] for row in columns] for i in range(len(columns))]
+    
+    return [[row[i] for row in columns] for i in range(len(columns[0]))]
         
     
     
@@ -47,7 +47,7 @@ def process_with_table(OWN_FILE: str, OTHER_FILE: str, column_to_start: int = 0,
     
     for row in rows:
         tree.insert("", tk.END, values=row)
-
+        
     tree.grid(column=0, columnspan=len(rows[0]), row=row_to_start, rowspan=len(rows))
     
     
