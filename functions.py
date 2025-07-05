@@ -8,8 +8,23 @@ from typing import List, Tuple, Union
 import os
 import tkinter as tk
 
-def parse_mod_file(file_path) -> List[Tuple[str, str]]:
-    """Parse an Arma 3 mod HTML file and return a list of mod dictionaries"""
+def parse_mod_file(file_path: str) -> List[Tuple[str, str]]:
+    """
+    Description:
+    ----------
+    This function extracts from an arma (html) mod set file, given as path, the mods present in the given set, 
+    which gets returned as a list of tuples, where each mod is represented as a tuple, containing the name and steam url.
+    
+    Parameters
+    ----------
+    file_path: str
+        strong containing absolute path towards the arma mod set in the form of an HTML file.
+        
+    Returns
+    -------
+    List[Tuple[str, str]]
+        this function returns a list of tuples, where each mod is represented as a tuple, containing the name and steam url in this order.
+    """
     with open(file_path, 'r', encoding='utf-8') as f:
         soup = BeautifulSoup(f.read(), 'html.parser')
     
@@ -44,32 +59,25 @@ def compare_mod_files(mod_list1: Set[Tuple[str, str]],
     Returns
     -------
     Dict[str, List[Tuple[str, str]]]
-        DESCRIPTION.
-
+        This function returns a dictionary with the keys being string values, and the associated value being a list of tuples, 
+        which represents the mods that belong to the type of set-wise relationship depicted by the key.
+        The keys/set relations returned are: common, union, first_only and second_only
     """
     
-    """function that compares two mod lists and tells what the
-    set-wise relations are
-
-    Args:
-        mod_list1 (Set[Mod]): Set of mods for file 1
-        mod_list2 (Set[Mod]): Set of mods for file 2
-    """ 
-    
     common: List[Tuple[str, str]] = list(mod_list1 & mod_list2)
-    unique : List[Tuple[str, str]] = list(mod_list1 | mod_list2)
+    union : List[Tuple[str, str]] = list(mod_list1 | mod_list2)
     first_only: List[Tuple[str, str]] = list(mod_list1 - mod_list2)
     second_only: List[Tuple[str, str]]= list(mod_list2 - mod_list1)
     
     if verbose:
         print("Common mods:", common )  # Intersection
-        print("All unique mods:", unique)  # Union
+        print("All unique mods:", union)  # Union
         print("Only in first set:", first_only)  # Difference
         print("Only in second set:", second_only)  # Difference
         print("Exclusive to each set:", mod_list1 ^ mod_list2)  # Symmetric difference
     
     return {'common': common,
-            "unique": unique,
+            "unique": union,
             "first only": first_only,
             "second only": second_only}
     
