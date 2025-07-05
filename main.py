@@ -24,17 +24,14 @@ def transpose(*columns: List[List[str]]) -> List[List[Union[str, int]]]:
     
     return [[row[i] for row in columns] for i in range(len(columns[0]))]
         
-    
-    
-    
 
 def process_with_table(OWN_FILE: str, OTHER_FILE: str, column_to_start: int = 0, row_to_start: int = 3) -> None:
     global root, data
     
     data = fully_process(OWN_FILE, OTHER_FILE)
     
-    own_only_name   : List[str] = list(map(lambda x: x[0], data["first only"]))
-    other_only_name : List[str] = list(map(lambda x: x[0], data["second only"]))
+    own_only_name   : List[str] = sorted(list(map(lambda x: x[0], data["first only"])))
+    other_only_name : List[str] = sorted(list(map(lambda x: x[0], data["second only"])))
     
     rows: List[List[str]] = transpose(own_only_name, other_only_name)
     
@@ -43,11 +40,11 @@ def process_with_table(OWN_FILE: str, OTHER_FILE: str, column_to_start: int = 0,
     
     for col in columns:
         tree.heading(col, text=col)
-        tree.column(col, width=300)
+        tree.column(col, width=450)
     
     for row in rows:
         tree.insert("", tk.END, values=row)
-        
+    
     tree.grid(column=0, columnspan=len(rows[0]), row=row_to_start, rowspan=len(rows))
     
     
@@ -95,7 +92,7 @@ def extract_path(path: int = 0) -> str:
     
 root = Tk()
 root.title("mod comparer")
-root.geometry("1000x500")
+root.geometry("1200x800")
 
 first_file_button   : Button = Button(root, text="find first file:"  , width=20, command=lambda : extract_path(path=0))
 second_file_button  : Button = Button(root, text="find secondt file:", width=20, command=lambda : extract_path(path=1))
