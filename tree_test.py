@@ -17,7 +17,7 @@ for col in columns:
 data = [
     ("Alice", 25, "Engineer"),
     ("Bob", 30, "Doctor"),
-    ("Charlie", 22, "Student")
+    ("Charlie", 22, "")
 ]
 for row in data:
     tree.insert("", tk.END, values=row)

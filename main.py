@@ -1,4 +1,5 @@
 from tkinter import Tk, Label, Entry, Button
+from tkinter.ttk import Treeview
 from tkinter.filedialog import askopenfilename
 from typing import List, Tuple, Set, Dict
 from functions import fully_process
@@ -6,6 +7,25 @@ import os
 
 first_path: str 
 second_path: str
+
+def process_with_table(OWN_FILE: str, OTHER_FILE: str, column_to_start: int = 0, row_to_start: int = 3) -> None:
+    global root, data
+    
+    data = fully_process(OWN_FILE, OTHER_FILE)
+    
+    own_only: List[Tuple[str, str]] = data["first only"]
+    other_only: List[Tuple[str, str]] = data["second only"]
+    
+    columns: Tuple[str] = ("first only", "second only")
+    tree = Treeview(root, columns=columns, show="headings")
+    
+    for col in columns:
+        tree.heading(col, text=col)
+        tree.column(col, width=100)
+        
+    
+    
+    
 
 def process(OWN_FILE: str, OTHER_FILE: str, column_to_start: int = 0, row_to_start: int = 3) -> None:
     global root, data
