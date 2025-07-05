@@ -34,9 +34,6 @@ second_file_button  : Button = Button(root, text="find secondt file:", width=20,
 first_file_label    : Label = Label(root)
 second_file_label   : Label = Label(root)
 
-some_test: Label = Label(root, text="test!")
-some_test.config(text="new text!")
-
 first_file_button.grid(column=0, row=0)
 second_file_button.grid(column=0, row=1)
 
