@@ -36,24 +36,20 @@ root = Tk()
 root.title("mod comparer")
 root.geometry("1000x500")
 
-own_msg = Label(root, text="own file: ")
-other_msg = Label(root, text="other file: ")
+first_file_button   : Button = Button(root, text="find first file:", width=20)
+second_file_button  : Button = Button(root, text="find secondt file:", width=20)
 
-own_entry = Entry(root, width=50)
-own_entry.insert(0, "own.html")
+first_file_label    : Label = Label(root)
+second_file_label   : Label = Label(root)
 
-other_entry = Entry(root, width=50)
-other_entry.insert(0, "other.html")
+some_test: Label = Label(root, text="test!")
+some_test.config(text="new text!")
 
-process_button = Button(root, text="process", command=lambda :test_click(own_entry.get(), other_entry.get()))
+first_file_button.grid(column=0, row=0)
+second_file_button.grid(column=0, row=1)
 
-own_msg.grid(column=0, row=0)
-own_entry.grid(column=1, row=0)
-
-other_msg.grid(column=0, row=1)
-other_entry.grid(column=1, row=1)
-
-process_button.grid(column=2, row=0, rowspan=2)
+first_file_label.grid(column=1, row=0)
+second_file_label.grid(column=1, row=1)
 
 root.mainloop()
 
