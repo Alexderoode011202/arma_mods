@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=arma mods comparison tool
+Comment=this little app compares mod lists from arma 3
+Exec=/home/alex/Documents/GitHub/arma_mods/dist/new_release
+Icon=/home/alex/Documents/GitHub/arma_mods/F.A.B_2018.png
+Terminal=false
+Categories=Utility;Application;
+Keywords=arma;mods;compare;comparison;tool

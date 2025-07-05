@@ -1,7 +1,7 @@
-from tkinter import Tk, Label, Entry, Button
+from tkinter import Tk, Label, Button
 from tkinter.ttk import Treeview
 from tkinter.filedialog import askopenfilename
-from typing import List, Tuple, Set, Dict, Union
+from typing import List, Tuple, Union
 from functions import fully_process
 import os
 import tkinter as tk
